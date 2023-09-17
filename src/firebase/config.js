@@ -1,6 +1,7 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth'
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyCqDmAeizPsn11Qnl9SI0s0XPEFJ6-78s8",
@@ -13,18 +14,15 @@ const firebaseConfig = {
 
 
   // Initialize firebase object
-  firebase.initializeApp(firebaseConfig)
+  initializeApp(firebaseConfig);
 
   // DB
-  const db = firebase.firestore()
+  const db = getFirestore();
 
   // Auth
-  const auth  = firebase.auth()
+  const auth = getAuth();
 
+  export { db, auth }
 
-  // Server teamsstamp
-  const ts = firebase.firestore.FieldValue.serverTimeStamp
-
-  export { db, auth, ts }
 
 
