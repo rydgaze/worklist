@@ -6,10 +6,7 @@
             <div v-if="user">
                 <button  @click="handleLogout">Logout</button>
             </div>            
-            <div v-else>
-                <router-link v-if="!user" class="btn" :to="{ name: 'signup' }">Signup</router-link>
-                <router-link v-if="!user" class="btn" :to="{ name: 'login' }">Login</router-link>
-            </div>  
+            
         </div>
     </nav>
   </div>
@@ -21,7 +18,7 @@ import  useLogout  from "@/composables/useLogout"
 import { useRouter } from "vue-router"
 export default {
     setup() {
-        const { user } = getCurrentUser()
+        const user = getCurrentUser()
         const { error, isPending, logout } =  useLogout()
         const router = useRouter()
         const handleLogout = async () => {

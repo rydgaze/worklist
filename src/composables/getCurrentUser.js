@@ -1,5 +1,5 @@
-import { db } from "@/firebase/config"
-import { ref, watchEffect } from "vue"
+import { auth } from "@/firebase/config"
+import { ref } from "vue"
 
 const user = ref(auth.currentUser)
 
@@ -10,7 +10,7 @@ auth.onAuthStateChanged(_user => {
 })
 
 const getCurrentUser = () => {
-    return { user }
+    return user 
 }
 
 export default getCurrentUser
