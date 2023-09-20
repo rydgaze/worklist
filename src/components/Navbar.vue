@@ -1,10 +1,10 @@
 <template>
-  <div class="navbar">
-    <nav>
-        <h1><router-link :to="{ name: 'home'}">WorkI</router-link></h1>
-        <div class="links">
+  <div class="navbar" >
+    <nav class="b-3 bg-gray-200 p-3 flex justify-between">
+        <h1 class="text-3xl font-bold uppercase"><router-link :to="{ name: 'home'}">WorkI</router-link></h1>
+        <div class="">
             <div v-if="user">
-                <button  @click="handleLogout">Logout</button>
+                <button class="btn"  @click="handleLogout">Logout</button>
             </div>            
             
         </div>
@@ -30,30 +30,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.navbar {
-    padding: 16px 10px;
-    margin-bottom: 60px;
-    background: white;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    max-width: auto;
-    margin:0 auto;
-}
-
-nav h1 {
-    margin-left: 20px;
-}
-
-nav .links {
-    margin-left: auto;
-}
-
-nav .links a, button {
-    margin-left: 16px;
-    font-size: 14px;
-}
+<style>
 </style>

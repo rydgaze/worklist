@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from './App.vue' 
 import router from './router'
 import { auth } from "@/firebase/config"
 
 // Global sytles
-import '@/assets/main.css'
+import './assets/styles.css'
+
+//import '@/assets/main.css'
 
 let app 
 auth.onAuthStateChanged(() => {

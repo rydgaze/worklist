@@ -1,7 +1,9 @@
 <template>
-  <Navbar />
-  <div class="content">
-    <router-view/>
+  <div class="bg-gray-100">
+    <Navbar />
+    <div class="font-content">
+      <router-view/>
+    </div>
   </div>
 </template>
 <script>
@@ -11,9 +13,5 @@ export default {
 }
 </script>
 <style>
-.content {
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 0 20px;
-}
+
 </style>
