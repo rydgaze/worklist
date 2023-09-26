@@ -1,9 +1,9 @@
 <template>
-  <div class="">
+  <header class="">
     <Navbar />
-    <div class="font-content">
+  </header>
+  <div>
       <router-view/>
-    </div>
   </div>
 </template>
 <script>
