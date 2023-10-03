@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LeftContext class="inline-block" :item="item" />
+    <LeftContext :class="offset" class="inline-block" :item="item" />
     <TextContent class="inline-block" :item="item"  
     @insert="insertItem" 
     @setlevel="setLevel" />
@@ -12,10 +12,15 @@
 import { ref, emit } from "vue";
 import LeftContext from "./LeftContext.vue";
 import TextContent from "./rowcontent/TextContent.vue";
+import { getOffsetStyle }  from "../composables/utils";
+
 export default {
   props: ["item"],
   components: { LeftContext, TextContent },
   setup(props, {emit}) {
+
+    const offset = ref('')
+    offset.value = getOffsetStyle(props.item)
 
     const insertItem = (itemId) => {
       emit('insert', itemId)
@@ -23,11 +28,15 @@ export default {
 
     const setLevel = (item) => {
         console.log('set level for ', item)
+        offset.value = getOffsetStyle(item)
+        console.log(offset.value)        
     }
+
 
     return { 
       insertItem,
-      setLevel
+      setLevel,
+      offset
      }
   }
 };

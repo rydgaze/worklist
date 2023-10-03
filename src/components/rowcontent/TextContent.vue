@@ -1,7 +1,7 @@
 <template>
-    <div class="inline-block grow">
+    <div class="inline-block">
         <input type="text"
-            class="inline-block  bg-gray-100 hover:border-b hover:border-gray-200 focus:border-b focus:outline-none focus:border-gray-300 selection:bg-blue-200"
+            class="inline-block w-[40rem] bg-gray-100 hover:border-b hover:border-gray-200 focus:border-b focus:outline-none focus:border-gray-300 selection:bg-blue-200"
             :class="{ 'line-through text-gray-200': item && item.attr.complete }" 
             v-model="item.val"
             @blur="finishEditing(item)" 

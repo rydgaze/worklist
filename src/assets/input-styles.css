@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 .input{
-    @apply bg-gray-100 m-1 border-b border-gray-300 w-80 focus:outline-none focus:border-gray-800;
+    @apply bg-gray-100  border-b m-auto border-gray-300  focus:outline-none focus:border-gray-800;
 }
 
 .error{

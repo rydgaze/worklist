@@ -5,7 +5,8 @@ import { auth } from "@/firebase/config";
 import { createPinia } from "pinia";
 
 // Global sytles
-import "./assets/styles.css";
+// FIX ME
+import "../dist/assets/styles.css";
 
 //import '@/assets/main.css'
 
