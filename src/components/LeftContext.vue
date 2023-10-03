@@ -2,7 +2,7 @@
   <div class="inline-block relative">
     <svg
       @click="showPopup(item)"
-      class="w-6 mr-2 text-gray-400 hover:text-gray-800 cursor-pointer inline-block"
+      class="w-6 mr-2 text-gray-400 opacity-20 hover:opacity-100 hover:text-gray-800 cursor-pointer inline-block"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -77,3 +77,5 @@ export default {
 </script>
 
 <style></style>
+
+

@@ -1,7 +1,9 @@
 <template>
-  <div class="flex">
+  <div>
     <LeftContext class="inline-block" :item="item" />
-    <TextContent class="inline-block" :item="item"  @insert="insertItem"  />
+    <TextContent class="inline-block" :item="item"  
+    @insert="insertItem" 
+    @setlevel="setLevel" />
     <label id="id" hidden> {{ item.id }}</label>
   </div>
 </template>
@@ -19,7 +21,14 @@ export default {
       emit('insert', itemId)
     }
 
-    return { insertItem }
+    const setLevel = (item) => {
+        console.log('set level for ', item)
+    }
+
+    return { 
+      insertItem,
+      setLevel
+     }
   }
 };
 </script>

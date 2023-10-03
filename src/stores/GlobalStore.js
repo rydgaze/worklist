@@ -27,35 +27,36 @@ export const useGlobalStore = defineStore("globalStore", {
     ],
     workItems: [
       {
-        idx: 0,
         id: uuidv4(),
         parent_id: null,
         val: "Solve global warming",
         attr: {
           complete: false,
         },
+        level: 0,
       },
       {
-        idx: 1,
         id: uuidv4(),
         parent_id: null,
         val: "Save Manatees",
         attr: {
           complete: false,
         },
+        level: 0,
       },
       {
-        idx: 2,
         id: uuidv4(),
         parent_id: null,
         val: "Bring about world peace",
         attr: {
           complete: false,
         },
+        level: 0,
       },
     ],
   }),
-  getters: {
+  getters: {},
+  actions: {
     getItem(id) {
       return this.workItems.find((item) => {
         return item.id === id;
@@ -71,26 +72,32 @@ export const useGlobalStore = defineStore("globalStore", {
     },
 
     getDirectChildren(id) {
-        return this.workItems.filter(item => {
-            return item.parent_id === id
-        })
-    }
-  },
-  actions: {
+      return this.workItems.filter((item) => {
+        return item.parent_id === id;
+      });
+    },
+
     replaceWorkItems(items) {
       this.workItems = items;
     },
 
     insertItemAfterId(id, itemToInsert) {
-        let newArray = []
-        this.workItems.forEach((item)=> {
-            newArray.push(item)
-            // Insert new item after this
-            if (item.id === id) {
-                newArray.push( itemToInsert)
-            }
-        })
-        this.workItems = newArray
+      let newArray = [];
+      this.workItems.forEach((item) => {
+        newArray.push(item);
+        // Insert new item after this
+        if (item.id === id) {
+          newArray.push(itemToInsert);
+        }
+      });
+      this.workItems = newArray;
+    },
+
+    updateItem(item) {
+      let current = this.getItem(item.id);
+      if (current) {
+        current = item;
+      }
     },
 
     addChild(parent, child) {
@@ -98,6 +105,25 @@ export const useGlobalStore = defineStore("globalStore", {
       if (item) {
         item.parent_id = parent.id;
       }
+    },
+
+    isTopElement(id) {
+      return this.workItems[0].id === id;
+    },
+
+    getElementAbove(id) {      
+      for (let i = 0; i < this.workItems.length; i++) {
+        let item = this.workItems[i];
+        if (item.id === id) {
+          if (i === 0) {
+            return null;
+          } else {
+            // TODO: Use level field to make sure we return same level element above
+            return this.workItems[i - 1];
+          }
+        }
+      }
+      return null;
     },
   },
 });
