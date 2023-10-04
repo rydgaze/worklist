@@ -1,8 +1,8 @@
 <template>
     <div class="inline-block">
         <input type="text"
-            class="inline-block w-[40rem] bg-gray-100 hover:border-b hover:border-gray-200 focus:border-b focus:outline-none focus:border-gray-300 selection:bg-blue-200"
-            :class="{ 'line-through text-gray-200': item && item.attr.complete }" 
+            class="inline-block xl:w-[60rem] lg:w-[40rem] md:w-[30rem] sm:w-[20rem] bg-gray-100 hover:border-b hover:border-gray-200 focus:border-b focus:outline-none focus:border-gray-300 selection:bg-blue-200"
+            :class="{ 'line-through text-gray-300': item && item.attr.complete }" 
             v-model="item.val"
             @blur="finishEditing(item)" 
             @keyup.enter="insertItem(item)" 
@@ -44,13 +44,24 @@ export default {
             if (itemAbove && 
                 (itemAbove.level == item.level)) {                
                 item.level = itemAbove.level + 1
-                
+                item.parent_id = itemAbove.id
                 emit('setlevel', item)          
+
+                // TODO: Move all children as well
             }  
         }
 
-        const removeParent = () => {
-            console.log('remove parent')
+        const removeParent = (item) => {
+            const itemAbove = globalStore.getElementAbove(item.id)
+            console.log('remove parent', itemAbove)
+            if (itemAbove) {                
+                item.level = itemAbove.level
+                item.parent_id = itemAbove.parent_id
+                emit('setlevel', item)        
+                
+                // TODO: Move all children as well
+
+            }  
         }
 
         const onTextSelect = () => { 

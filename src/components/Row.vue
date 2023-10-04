@@ -13,11 +13,13 @@ import { ref, emit } from "vue";
 import LeftContext from "./LeftContext.vue";
 import TextContent from "./rowcontent/TextContent.vue";
 import { getOffsetStyle }  from "../composables/utils";
+import { useGlobalStore } from "@/stores/GlobalStore";
 
 export default {
   props: ["item"],
   components: { LeftContext, TextContent },
   setup(props, {emit}) {
+    const globalStore = useGlobalStore();
 
     const offset = ref('')
     offset.value = getOffsetStyle(props.item)
@@ -32,11 +34,11 @@ export default {
         console.log(offset.value)        
     }
 
-
     return { 
       insertItem,
       setLevel,
-      offset
+      offset,
+      globalStore
      }
   }
 };

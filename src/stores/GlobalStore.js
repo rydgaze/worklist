@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export const useGlobalStore = defineStore("globalStore", {
   state: () => ({
+    showModalWithId: "",
     contexMenu: [
       {
         id: uuidv4(),

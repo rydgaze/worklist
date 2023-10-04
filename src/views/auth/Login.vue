@@ -1,10 +1,10 @@
 <template>
   <div class="mt-9 flex flex-col justify-center items-center ">
     <form @submit.prevent="handleSubmit" >
-      <h3 class="text-xl font-semibold m-1 mb-4">Login to your account</h3>
-      <input class="input" type="email" placeholder="Email" v-model="email" required>
+      <h3 class="text-xl font-semibold m-1 mb-8">Login to your account</h3>
+      <input class="input w-[300px] m-[100px]" type="email" placeholder="Email" v-model="email" required>
       <br>
-      <input class="input" type="password" placeholder="Password" v-model="password" required>
+      <input class="input w-[300px] m-4" type="password" placeholder="Password" v-model="password" required>
       <br>
       <div class="error" v-if="error">{{ error }}</div>
       <br>
