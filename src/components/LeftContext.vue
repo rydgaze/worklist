@@ -43,8 +43,13 @@ export default {
     const selectItem = (selectedItem, item) => {
       console.log("Item", item);
       console.log("selectedItem", selectedItem)
-      if (item.val == 'Complete')
+      // Do not use string. Also.. Is this the place for this?
+      if (item.val == 'Complete') {
+        // TODO: All children?
         selectedItem.attr.complete = !selectedItem.attr.complete
+      } else if (item.val == 'Delete') {
+        globalStore.deleteItem(selectedItem)
+      }
       closeModal()
     };
 

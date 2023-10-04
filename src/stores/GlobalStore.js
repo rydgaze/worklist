@@ -56,8 +56,24 @@ export const useGlobalStore = defineStore("globalStore", {
       },
     ],
   }),
-  getters: {},
+  getters: {
+  },
   actions: {
+    getItems() {
+      if (!this.workItems.length) {
+        this.workItems.push({
+            id: uuidv4(),
+            parent_id: null,
+            val: '',
+            attr: {
+              complete: false,
+            },
+            level: 0,
+        })
+      }
+      return this.workItems
+    },
+    
     getItem(id) {
       return this.workItems.find((item) => {
         return item.id === id;
@@ -99,6 +115,10 @@ export const useGlobalStore = defineStore("globalStore", {
       if (current) {
         current = item;
       }
+    },
+
+    deleteItem(item) {
+      this.workItems = this.workItems.filter(sItem => item.id !== sItem.id)
     },
 
     addChild(parent, child) {

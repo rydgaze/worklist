@@ -1,6 +1,6 @@
 <template>
   <ul class="flex flex-col ml-40 mt-10   ">
-    <li  v-for="item in globalStore.workItems" :key="item.id" ref="itemRefs" >
+    <li  v-for="item in globalStore.getItems()" :key="item.id" ref="itemRefs" >
       <Row :item="item"  @insert="insertItem" />
     </li>
   </ul>
