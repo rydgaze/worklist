@@ -1,8 +1,13 @@
 import { defineStore } from "pinia";
 import { v4 as uuidv4 } from "uuid";
+import { db } from "@/firebase/config";
+
+import { collection, query, where, getDocs, doc } from "firebase/firestore";
+import getCurrentUser from "@/composables/getCurrentUser";
 
 export const useGlobalStore = defineStore("globalStore", {
   state: () => ({
+    isLoading: false,
     showModalWithId: "",
     contexMenu: [
       {
@@ -26,54 +31,55 @@ export const useGlobalStore = defineStore("globalStore", {
         val: "Delete",
       },
     ],
-    workItems: [
+    workItems: [      
       {
         id: uuidv4(),
         parent_id: null,
-        val: "Solve global warming",
+        val: "Task List ...",
         attr: {
           complete: false,
-        },
-        level: 0,
-      },
-      {
-        id: uuidv4(),
-        parent_id: null,
-        val: "Save Manatees",
-        attr: {
-          complete: false,
-        },
-        level: 0,
-      },
-      {
-        id: uuidv4(),
-        parent_id: null,
-        val: "Bring about world peace",
-        attr: {
-          complete: false,
+          bold: false,
+          italic: false,
         },
         level: 0,
       },
     ],
   }),
-  getters: {
-  },
+  getters: {},
   actions: {
-    getItems() {
-      if (!this.workItems.length) {
-        this.workItems.push({
-            id: uuidv4(),
-            parent_id: null,
-            val: '',
-            attr: {
-              complete: false,
-            },
-            level: 0,
-        })
-      }
-      return this.workItems
+    async getItems() {
+       await this.getItemsAsync()
     },
-    
+
+    async getItemsAsync() {
+      const user = getCurrentUser();
+      if (!user) {
+        return [];
+      }
+      this.isLoading = true;
+      console.log("User id ", user.value.uid);
+
+      const q = query(
+        collection(db, "workitems"),
+        where("uid", "==", user.value.uid)
+      );
+      console.log("query", q);
+      const querySnapshot =  await getDocs(q);
+      console.log("query await over");
+      if (querySnapshot.length > 0) {
+        this.workItems = []
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          this.workItems.push([...doc.data(), doc.id]);
+        });
+  
+      }
+
+      console.log('get items', this.workItems);
+      this.isLoading = false;      
+    },
+
     getItem(id) {
       return this.workItems.find((item) => {
         return item.id === id;
@@ -104,6 +110,7 @@ export const useGlobalStore = defineStore("globalStore", {
         newArray.push(item);
         // Insert new item after this
         if (item.id === id) {
+          console.log("inserting.. ")
           newArray.push(itemToInsert);
         }
       });
@@ -118,7 +125,9 @@ export const useGlobalStore = defineStore("globalStore", {
     },
 
     deleteItem(item) {
-      this.workItems = this.workItems.filter(sItem => item.id !== sItem.id)
+      this.workItems = this.workItems.filter((sItem) => {
+        return item.id !== sItem.id && item.id !== sItem.parent_id;
+      });
     },
 
     addChild(parent, child) {
@@ -132,9 +141,12 @@ export const useGlobalStore = defineStore("globalStore", {
       return this.workItems[0].id === id;
     },
 
-    getElementAbove(id) {      
+    getElementAbove(id) {
+
       for (let i = 0; i < this.workItems.length; i++) {
         let item = this.workItems[i];
+        console.log('getting above element ', item.id, id)
+
         if (item.id === id) {
           if (i === 0) {
             return null;

@@ -20,7 +20,6 @@ export default {
   components: { LeftContext, TextContent },
   setup(props, {emit}) {
     const globalStore = useGlobalStore();
-
     const offset = ref('')
     offset.value = getOffsetStyle(props.item)
 

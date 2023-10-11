@@ -31,6 +31,14 @@ const getOffsetStyle = (item) => {
     case 10:
       off = "ml-[200px]"
       break
+    case 11:
+      off = "ml-[220px]"
+      break
+    case 12:
+      off = "ml-[240px]"
+      break
+  
+  
   }
   return off
 }
